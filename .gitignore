@@ -1,6 +1,9 @@
 # logging output
 logs
 
+#wordpress 
+wordpress/*
+
 # macOS and IDE
 .DS_Store
 .idea

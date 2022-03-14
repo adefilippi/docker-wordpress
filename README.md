@@ -29,7 +29,7 @@ For more info about TaskFile, visit: https://taskfile.dev/#/installation
 
 
 ## 2 - Configuration
-### Update environment variables 
+### Update environment variables
 In .env file, replace variables to fit your needs
  ```bash
 # MySQL Settings
@@ -54,9 +54,18 @@ Add a `local.wordpress.fr` to your `/etc/hosts` file (depending on variables NGI
 
 ## 3 - Install
 
-### Site 
-Copy content of website in the wordpress folder 
+### Site
+Copy website content in the wordpress folder
 
+### Database
+Copy .sql file in root directory 
+Run `task docker:database` to exec command in database container
+Replace WORDPRESS_DB_NAME with value configured in step 2
+Replace SQL_FILE_NAME with the one copied in previous step 
+ ```bash
+# cd /app 
+# mysql -h localhost -u root -p WORDPRESS_DB_NAME < SQL_FILE_NAME.sql
+ ```
 
 
 ### Run
