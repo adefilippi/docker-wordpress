@@ -1,0 +1,7 @@
+ARG PHP_VERSION
+
+FROM wordpress:5-fpm
+
+RUN apt-get install $PHPIZE_DEPS \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug

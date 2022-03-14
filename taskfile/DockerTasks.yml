@@ -1,0 +1,43 @@
+version: '3'
+
+tasks:
+  up:
+    desc: 'Run docker containers.'
+    cmds:
+      - docker-compose up -d --remove-orphans
+
+  down:
+    desc: 'Stop docker containers.'
+    cmds:
+      - docker-compose down
+
+  restart:
+    desc: 'Relaunch docker containers.'
+    cmds:
+      - task: down
+      - task: up
+
+  logs:
+    desc: "Display container's logs."
+    cmds:
+      - docker-compose logs -f {{.CLI_ARGS}}
+
+  ps:
+    desc: 'Show docker processes.'
+    cmds:
+      - docker-compose ps
+
+  wordpress:
+    desc: 'Execute a command in a wordpress container'
+    cmds:
+      - docker-compose exec wordpress bash
+
+  database:
+    desc: 'Execute a command in a database container'
+    cmds:
+      - docker-compose exec database bash
+  
+  nginx:
+    desc: 'Execute a command in a nginx container'
+    cmds:
+      - docker-compose exec nginx bash

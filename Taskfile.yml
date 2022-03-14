@@ -1,0 +1,28 @@
+version: '3'
+
+vars:
+  FPM_UID:
+    sh: '{{if ne OS "darwin"}}id -u{{end}}'
+  FPM_GID:
+    sh: '{{if ne OS "darwin"}}id -g{{end}}'
+  PHP_BUILD: 'docker-compose run --rm {{if ne OS "darwin"}}--user="{{.FPM_UID}}:{{.FPM_GID}}"{{end}} build-php'
+
+env:
+  APP_ENV: '{{default "dev" .APP_ENV}}'
+
+includes:
+  # User prefix docker to call docker commands, like docker:up
+  docker: ./taskfile/DockerTasks.yml
+
+tasks:
+  export-env-vars:
+    cmds:
+      - export FPM_UID={{.FPM_UID}}
+      - export FPM_GID={{.FPM_GID}}
+
+  install:
+    desc: 'Install project'
+    cmds:
+      - task: export-env-vars
+      - task: docker:restart
+      - task: docker:ps
